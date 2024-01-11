@@ -4,49 +4,45 @@
 
 using namespace std;
 
+//Time Limit Exceeded
 class Solution {
 public:
-	string reverseWords(string s) {
-		string result;
-		vector<string> words;
-		int wordPtn1 = 0;
-		int wordPtn2 = 0;
-		for (int i = 0; i < s.length(); i++) {
-			wordPtn1 = s.find_first_not_of(' ', wordPtn2);
-			if (wordPtn1 == string::npos) {
-				cout << "11111" << endl;
-				break;
+	vector<int> productExceptSelf(vector<int>& nums) {
+		vector<int> result;
+		//result.resize(nums.size(),1);
+		
+		//-1 7 4 5 6 1 3
+		for (int i = 0; i < nums.size();i++) {
+			int out = 1;
+			int left = 0;
+			int right = nums.size() - 1;
+			while (left <= right) 
+			{
+				if (i != left && left != right) {
+					out *= nums[left];
+				}
+				if (i != right ) {
+					out *= nums[right];
+				}
+					left++;
+					right--;
 			}
-			wordPtn2 = s.find_first_of(' ', wordPtn1+1);
-
-			cout << "wordPtn1: " << wordPtn1 << endl;
-			cout << "wordPtn2: " << wordPtn2 << endl;
-			if (wordPtn2 == -1) {
-				words.push_back(s.substr(wordPtn1, s.length() - wordPtn1));
-				cout << "22222" << endl;
-				break;
-			}
-			else {
-				words.push_back(s.substr(wordPtn1, wordPtn2 - wordPtn1));
-
-			}
-			//if (wordPtn2 == -1) break;
-
+			result.push_back(out);
 		}
 		
-		while (!words.empty()) {
-			result = result + words.back() + " ";
-			words.pop_back();
+		for (int num : result) {
+			cout << num << endl;
 		}
-		result.pop_back();
+
 		return result;
 	}
 };
 
 int main() {
 	Solution myCode;
-
-	string s = "the sky is blue";
-	cout << myCode.reverseWords(s) << endl;
+	vector<int> nums = { 1,2,3,4 };
+	vector<int> nums2 = { 1,2,3};
+	//cout << myCode.productExceptSelf(nums) << endl;
+	myCode.productExceptSelf(nums2);
 
 }
